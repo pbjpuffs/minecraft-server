@@ -1,4 +1,4 @@
-.PHONY: help setup start stop restart logs status console backup players op whitelist-add whitelist-remove update plugins plugins-list plugins-dir
+.PHONY: help setup start stop restart logs status console backup players op whitelist-add whitelist-remove update plugins plugins-list plugins-dir uninstall
 
 # Default target
 help:
@@ -34,6 +34,7 @@ help:
 	@echo "  Maintenance:"
 	@echo "    make backup             Backup world data"
 	@echo "    make setup-cron         Install automatic backups every 6 hours"
+	@echo "    make uninstall          Complete removal (server, data, Docker, firewall)"
 	@echo ""
 
 # ── Setup ──────────────────────────────────────────────
@@ -131,3 +132,6 @@ setup-cron:
 	@echo "Auto-backup installed: every 6 hours."
 	@echo "Current crontab:"
 	@crontab -l
+
+uninstall:
+	@bash uninstall.sh
