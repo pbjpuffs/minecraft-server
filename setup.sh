@@ -14,7 +14,14 @@ if ! command -v docker &> /dev/null; then
     echo "[2/5] Installing Docker..."
     sudo apt install -y ca-certificates curl gnupg
     sudo install -m 0755 -d /etc/apt/keyrings
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+
+    # Remove any conflicting Docker keys/sources to avoid Signed-By mismatch
+    sudo rm -f /etc/apt/keyrings/docker.gpg /etc/apt/keyrings/docker.asc
+    sudo rm -f /etc/apt/sources.list.d/docker.list
+
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /tmp/docker.asc
+    sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg /tmp/docker.asc
+    rm -f /tmp/docker.asc
     sudo chmod a+r /etc/apt/keyrings/docker.gpg
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
     sudo apt update
