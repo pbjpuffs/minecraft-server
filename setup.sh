@@ -15,15 +15,14 @@ if ! command -v docker &> /dev/null; then
     sudo apt install -y ca-certificates curl gnupg
     sudo install -m 0755 -d /etc/apt/keyrings
 
-    # Remove any conflicting Docker keys/sources to avoid Signed-By mismatch
+    # Remove ALL conflicting Docker keys and source lists
     sudo rm -f /etc/apt/keyrings/docker.gpg /etc/apt/keyrings/docker.asc
-    sudo rm -f /etc/apt/sources.list.d/docker.list
+    sudo rm -f /etc/apt/sources.list.d/docker.list /etc/apt/sources.list.d/docker.sources
 
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /tmp/docker.asc
-    sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg /tmp/docker.asc
-    rm -f /tmp/docker.asc
-    sudo chmod a+r /etc/apt/keyrings/docker.gpg
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    # Add fresh key and source (single canonical path)
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo tee /etc/apt/keyrings/docker.asc > /dev/null
+    sudo chmod a+r /etc/apt/keyrings/docker.asc
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
     sudo apt update
     sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
     sudo usermod -aG docker "$USER"
