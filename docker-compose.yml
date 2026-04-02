@@ -11,7 +11,7 @@ services:
       # Server type
       EULA: "TRUE"
       TYPE: "PAPER"
-      VERSION: "LATEST"
+      VERSION: "1.21.4"
 
       # Performance tuning for 8 cores / 32GB RAM
       MEMORY: "16G"
