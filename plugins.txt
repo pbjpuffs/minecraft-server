@@ -1,0 +1,31 @@
+# ============================================
+#  Minecraft Plugin Manager
+# ============================================
+#
+# Add one plugin URL per line. Supported sources:
+#
+#   Modrinth:   https://modrinth.com/plugin/<slug>
+#   CurseForge: https://www.curseforge.com/minecraft/bukkit-plugins/<slug>
+#   SpigotMC:   https://www.spigotmc.org/resources/<name>.<id>
+#   Direct URL:  https://example.com/plugin.jar
+#   GitHub:      https://github.com/user/repo
+#
+# Lines starting with # are comments.
+# After editing, run: make plugins
+# ============================================
+
+# ── Performance ──
+https://modrinth.com/plugin/chunky
+
+# ── Administration ──
+https://modrinth.com/plugin/luckperms
+https://modrinth.com/plugin/essentialsx
+
+# ── Protection ──
+https://modrinth.com/plugin/worldguard
+https://modrinth.com/plugin/coreprotect
+
+# ── Quality of Life ──
+# https://modrinth.com/plugin/dynmap
+# https://modrinth.com/plugin/vault
+# https://modrinth.com/plugin/placeholderapi

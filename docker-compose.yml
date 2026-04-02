@@ -57,11 +57,18 @@ services:
       RCON_PASSWORD: "CHANGE_ME_TO_A_STRONG_PASSWORD"
       RCON_PORT: 25575
 
+      # Plugin/Mod auto-download
+      # Modrinth plugins (reads from plugins.txt)
+      MODRINTH_PROJECTS: ""
+      # Remove old plugin jars before downloading fresh ones
+      REMOVE_OLD_MODS: "true"
+
       # Timezone
       TZ: "UTC"
 
     volumes:
       - ./data:/data
+      - ./plugins.txt:/extras/plugins.txt:ro
     stdin_open: true
     tty: true
 

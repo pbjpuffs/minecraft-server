@@ -40,9 +40,10 @@ sudo ufw allow 22/tcp comment "SSH"
 sudo ufw --force enable
 echo "  Firewall configured: port 25565 (Minecraft) and 22 (SSH) open."
 
-# Create data directory
-echo "[5/5] Creating data directory..."
-mkdir -p data
+# Create directories
+echo "[5/5] Creating directories..."
+mkdir -p data/plugins
+chmod +x backup.sh install-plugins.sh
 
 echo ""
 echo "========================================="

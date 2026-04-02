@@ -1,4 +1,4 @@
-.PHONY: help setup start stop restart logs status console backup players op whitelist-add whitelist-remove update
+.PHONY: help setup start stop restart logs status console backup players op whitelist-add whitelist-remove update plugins plugins-list plugins-dir
 
 # Default target
 help:
@@ -25,6 +25,11 @@ help:
 	@echo "    make op NAME=Steve      Make a player operator"
 	@echo "    make whitelist-add NAME=Steve"
 	@echo "    make whitelist-remove NAME=Steve"
+	@echo ""
+	@echo "  Plugins:"
+	@echo "    make plugins            Install/update plugins from plugins.txt"
+	@echo "    make plugins-list       Show installed plugin files"
+	@echo "    make plugins-dir        Open plugins folder for manual installs"
 	@echo ""
 	@echo "  Maintenance:"
 	@echo "    make backup             Backup world data"
@@ -100,6 +105,21 @@ else
 	@docker exec minecraft-server rcon-cli "whitelist remove $(NAME)"
 	@echo "$(NAME) removed from whitelist."
 endif
+
+# ── Plugins ────────────────────────────────────────────
+
+plugins:
+	@chmod +x install-plugins.sh
+	@bash install-plugins.sh
+
+plugins-list:
+	@echo "Installed plugins:"
+	@ls -lh data/plugins/*.jar 2>/dev/null || echo "  No plugins installed yet."
+
+plugins-dir:
+	@mkdir -p data/plugins
+	@echo "Plugin directory: $(PWD)/data/plugins/"
+	@echo "Drop .jar files there and run 'make restart'"
 
 # ── Maintenance ────────────────────────────────────────
 
